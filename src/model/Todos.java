@@ -15,8 +15,10 @@ public class Todos {
         return this.todos;
     }
 
-    public void addNewTask(Task task) {
+    public Task addNewTask(Task task) {
         this.todos.add(task);
+
+        return task;
     }
 
 
