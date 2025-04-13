@@ -1,9 +1,12 @@
-### IntelliJ IDEA ###
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 
-### Eclipse ###
+# Eclipse
 .apt_generated
 .classpath
 .factorypath
@@ -15,15 +18,40 @@ bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
 
-### NetBeans ###
+# NetBeans
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
 
-### VS Code ###
+# VS Code
 .vscode/
 
-### Mac OS ###
+# MacOS
 .DS_Store
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+
+# Maven
+target/
+.mvn/
+log/
+*.log
+
+# JavaFX SDK (если не используешь через Maven)
+javafx-sdk-21/
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+
+# Windows system files
+Thumbs.db
+desktop.ini
+*.orig
