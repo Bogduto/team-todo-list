@@ -7,13 +7,15 @@ import javafx.scene.layout.Pane;
 
 public class CreateTodoForm {
     private String value;
-    private final VBox layout = new VBox(10); // вертикальное расположение с отступом
+    private final VBox layout = new VBox(10);
 
     public Pane todoForm() {
         TextField tf = new TextField();
-        tf.setPromptText("Введите задачу");
+        tf.getStyleClass().addAll("input", "text");
+        tf.setPromptText("\uD83E\uDD51 авокадо");
 
-        Button submitButton = new Button("Добавить");
+        Button submitButton = new Button("Додати");
+        submitButton.getStyleClass().addAll("button", "button-submit", "button-submit__text");
         submitButton.setOnAction(e -> {
             value = tf.getText();
             // Тут логика добавления нового todo

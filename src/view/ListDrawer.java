@@ -17,10 +17,10 @@ public class ListDrawer {
 
     public ScrollPane draw() {
         for (int i = 1; i <= size; i++) {
-            HBox li = this.Item("Item " + i);
-            this.container.getChildren().add(li);
+            ItemWithActions li = new ItemWithActions("item" + i);
+            this.container.getChildren().add(li.draw());
         }
-
+        this.container.getStyleClass().add("list");
         ScrollPane scrollPane = new ScrollPane(container);
         scrollPane.setFitToWidth(true); // растягивать содержимое по ширине
 
@@ -29,21 +29,5 @@ public class ListDrawer {
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
         return scrollPane;
-    }
-
-    private HBox Item(String name) {
-        HBox div = new HBox();
-        div.setSpacing(10);
-        div.setStyle("-fx-padding: 10; -fx-background-color: #f0f0f0; -fx-border-color: #ccc;");
-
-        CheckBox cb = new CheckBox();
-        cb.setIndeterminate(false);
-        cb.setStyle("-fx-border-width: 1; -fx-border-radius: 10;");
-        div.getChildren().add(cb);
-
-        Label label = new Label(name);
-        div.getChildren().add(label);
-
-        return div;
     }
 }
