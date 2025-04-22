@@ -27,8 +27,19 @@ public class Task {
      *
      * @return Опис задачі
      */
+
     public String getValue() {
         return value;
+    }
+
+    /**
+     * Змінює опис задачі на нове значення.
+     *
+     * @param value новий опис задачі.
+     */
+
+    public void setValue(String value) {
+        this.value = value;
     }
 
     /**
