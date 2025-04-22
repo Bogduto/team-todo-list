@@ -62,6 +62,15 @@ public class Task {
         return createdAt;
     }
 
+/**
+     * Метод, який повертає активність задачі
+     *
+     * @return активність задачі
+     */
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
     /**
      * Переоприділений метод toString для повернення текстового представлення задачі.
      *
@@ -69,7 +78,11 @@ public class Task {
      */
     @Override
     public String toString() {
-        return super.toString();
+        return "Task{" +
+                "id='" + id + '\'' +
+                ", createdAt='" + createdAt + '\'' +
+                ", value='" + value + '\'' +
+                ", isActive=" + isActive +
+                '}';
     }
-
 }
