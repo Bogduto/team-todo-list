@@ -12,10 +12,21 @@ public class Todos {
         this.todos = todos;
     }
 
+    /**
+     * Повертає массив об'єктів
+     *
+     * @return повертає массив
+     */
     public ArrayList<Task> getTodos() {
         return this.todos;
     }
 
+    /**
+     * Додає нову задачу до списку.
+     *
+     * @param task об'єкт задачі, яку потрібно додати
+     * @return об'єкт доданої задачі
+     */
     public Task addNewTask(Task task) {
         this.todos.add(task);
 
