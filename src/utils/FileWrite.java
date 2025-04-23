@@ -17,7 +17,7 @@ public class FileWrite {
 
     public void writeFile(Task task) {
         try (FileWriter writer = new FileWriter(this.fileName, this.append)) {
-            writer.write("\n" + task.getId() + " " + task.getCreatedAt() + " " + task.getValue());
+            writer.write("\n" + task.getId() + " " + task.getCreatedAt() + " " + task.getValue() + " " + task.getIsActive());
         } catch (IOException e) {
             System.out.print(e);
         }
