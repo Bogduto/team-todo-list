@@ -17,7 +17,7 @@ public class Task {
      * @param value     Опис задачі
      * @param isActive  Активність задачі
      */
-    public Task(String id, String createdAt, String value) {
+    public Task(String id, String createdAt, String value, Boolean isActive) {
         this.id = id;
         this.createdAt = createdAt;
         this.value = value;
@@ -69,6 +69,15 @@ public class Task {
      */
     public Boolean getIsActive() {
         return isActive;
+    }
+
+
+    /**
+     * Перемикає стан активності.
+     * Якщо об'єкт був активним — стане неактивним, і навпаки.
+     */
+    public void setIsActive() {
+        this.isActive = !this.isActive;
     }
 
     /**
