@@ -37,26 +37,28 @@ public class Todos {
      * Метод який редагує опис задачі за заданим ідентифікатором.
      * Якщо задача з таким ідентифікатором знайдена, її опис буде змінено на нове значення.
      *
-     * @param id ідентифікатор задачі, яку потрібно відредагувати.
      * @param value новий опис задачі.
      */
-    public void editTask(String id, String value) {
-        for (Task task : todos) {
-            if (task.getId().equals(id)) {
-                task.setValue(value);
-                break;
-            }
+    public void editTask(int index, String value) {
+        if (isIndexValid(index))
+        {
+            todos.get(index).setValue(value);
         }
     }
 
     /**
      * Видаляє задачу з колекції за заданим ідентифікатором.
      * Якщо задача з таким ідентифікатором існує, вона буде видалена з колекції задач.
-     *
-     * @param id ідентифікатор задачі, яку потрібно видалити.
      */
-    public void removeTask(String id) {
-        todos.removeIf(task -> task.getId().equals(id));
+    public void removeTask(int index) {
+        if (isIndexValid(index))
+        {
+            todos.remove(index);
+        }
     }
 
+    private boolean isIndexValid(int index)
+    {
+        return index >= 0 && index < todos.size();
+    }
 }

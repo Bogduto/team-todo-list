@@ -6,22 +6,27 @@ package schemas;
  */
 public class Task {
     private String value; // Опис задачі
-    private String id; // Ідентифікатор задачі
     private String createdAt; // Дата та час створення задачі
     private boolean isActive; // Активність задачі
     /**
      * Конструктор класу Task.
      *
-     * @param id        Ідентифікатор задачі
      * @param createdAt Дата та час створення задачі
      * @param value     Опис задачі
      * @param isActive  Активність задачі
      */
-    public Task(String id, String createdAt, String value, Boolean isActive) {
-        this.id = id;
+//    public Task(String id, String createdAt, String value, Boolean isActive) {
+//        this.id = id;
+//        this.createdAt = createdAt;
+//        this.value = value;
+//        this.isActive = isActive;
+//    }
+
+    public Task(boolean isActive, String createdAt, String value)
+    {
+        this.isActive = isActive;
         this.createdAt = createdAt;
         this.value = value;
-        this.isActive = isActive;
     }
 
     /**
@@ -42,15 +47,6 @@ public class Task {
 
     public void setValue(String value) {
         this.value = value;
-    }
-
-    /**
-     * Отримати ідентифікатор задачі.
-     *
-     * @return Ідентифікатор задачі
-     */
-    public String getId() {
-        return id;
     }
 
     /**
@@ -86,11 +82,11 @@ public class Task {
      * @return Текстове представлення задачі
      */
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "Task{" +
-                "id='" + id + '\'' +
+                "value='" + value + '\'' +
                 ", createdAt='" + createdAt + '\'' +
-                ", value='" + value + '\'' +
                 ", isActive=" + isActive +
                 '}';
     }

@@ -5,21 +5,34 @@ import schemas.Task;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
 public class FileWrite {
-    private File fileName;
-    private boolean append;
+    private final File file;
 
-    public FileWrite(String fileName, boolean append) {
-        this.fileName = new File(fileName);
-        this.append = append;
+    public FileWrite(String fileName) {
+        this.file = new File(fileName);
     }
 
-    public void writeFile(Task task) {
-        try (FileWriter writer = new FileWriter(this.fileName, this.append)) {
-            writer.write("\n" + task.getId() + " " + task.getCreatedAt() + " " + task.getValue() + " " + task.getIsActive());
+    private String formatTask(Task task) {
+        return "%s⁞ %s⁞ %s".formatted(task.getCreatedAt(), task.getValue(), task.getIsActive());
+    }
+
+    public void writeTask(Task task, boolean append) {
+        try (FileWriter writer = new FileWriter(file, append)) {
+            writer.write(formatTask(task) + "\n");
         } catch (IOException e) {
-            System.out.print(e);
+            System.err.println("Помилка запису задачі: " + e.getMessage());
+        }
+    }
+
+    public void writeAllTasks(List<Task> tasks, boolean append) {
+        try (FileWriter writer = new FileWriter(file, append)) {
+            for (Task task : tasks) {
+                writer.write(formatTask(task) + "\n");
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Помилка масового запису задач: " + e.getMessage(), e);
         }
     }
 }
