@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.ArrayList;
 
 public class Todos {
-    private ArrayList<Task> todos;
+    private final ArrayList<Task> todos;
 
     public Todos(ArrayList<Task> todos) {
         this.todos = todos;
@@ -17,7 +17,7 @@ public class Todos {
      *
      * @return повертає массив
      */
-    public ArrayList<Task> getTodos() {
+    public ArrayList<Task> getTasks() {
         return this.todos;
     }
 
