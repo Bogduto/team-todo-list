@@ -4,7 +4,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
+import java.util.function.Consumer;
+
 public class CreateTodoForm {
+
+    private final Consumer<String> onSubmit;
+
+    public CreateTodoForm(Consumer<String> onSubmit) {
+        this.onSubmit = onSubmit;
+    }
+
 
     public VBox todoForm() {
         VBox layout = new VBox(10);
@@ -19,6 +28,7 @@ public class CreateTodoForm {
         submitButton.setOnAction(e -> {
             String value = tf.getText();
             if (value != null && !value.trim().isEmpty()) {
+                onSubmit.accept(value); // callback
                 System.out.println("Додана задача: " + value);
             } else {
                 System.out.println("Будьласка введіть задачу.");

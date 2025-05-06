@@ -14,10 +14,12 @@ public class ListDrawer {
     }
 
     public ScrollPane draw() {
+//        дані заміняться на настоящі
         for (int i = 1; i <= size; i++) {
             ItemWithActions li = new ItemWithActions(new ItemState("item" + i));
             this.container.getChildren().add(li.draw());
         }
+
         this.container.getStyleClass().add("list");
         ScrollPane scrollPane = new ScrollPane(container);
         scrollPane.setFitToWidth(true);
