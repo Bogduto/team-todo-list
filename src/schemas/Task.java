@@ -8,18 +8,20 @@ public class Task {
     private String value; // Опис задачі
     private String id; // Ідентифікатор задачі
     private String createdAt; // Дата та час створення задачі
-
+    private boolean isActive; // Активність задачі
     /**
      * Конструктор класу Task.
      *
      * @param id        Ідентифікатор задачі
      * @param createdAt Дата та час створення задачі
      * @param value     Опис задачі
+     * @param isActive     Активність задачі
      */
-    public Task(String id, String createdAt, String value) {
+    public Task(String id, String createdAt, String value, boolean isActive) {
         this.id = id;
         this.createdAt = createdAt;
         this.value = value;
+        this.isActive = isActive;
     }
 
     /**
@@ -29,6 +31,15 @@ public class Task {
      */
     public String getValue() {
         return value;
+    }
+
+    /**
+     * Змінює опис задачі на нове значення.
+     *
+     * @param value новий опис задачі.
+     */
+    public void setValue(String value) {
+        this.value = value;
     }
 
     /**
@@ -47,6 +58,15 @@ public class Task {
      */
     public String getCreatedAt() {
         return createdAt;
+    }
+
+    /**
+     * Метод який повертає активність задачі
+     *
+     * @return активність задачі
+     */
+    public Boolean getIsActive() {
+        return isActive;
     }
 
     /**

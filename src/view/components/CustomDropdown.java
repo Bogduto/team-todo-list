@@ -1,16 +1,12 @@
-package view;
+package view.components;
 
-import com.sun.tools.javac.Main;
 import javafx.geometry.Bounds;
 import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import javafx.stage.Window;
 
 import java.net.URL;
-import java.util.List;
 
 
 import javafx.scene.image.Image;
@@ -23,11 +19,11 @@ public class CustomDropdown extends VBox {
 
     public CustomDropdown(VBox items, String size, URL icon_url) {
         if (icon_url == null) {
-            icon_url = getClass().getResource("../resources/arrow_down.png");
+            icon_url = getClass().getResource("../../resources/arrow_down.png");
         }
 
         if (icon_url == null) {
-            throw new RuntimeException("Файл не найден: /assets/arrow_down.png");
+            throw new RuntimeException("Файл не знайдено: /assets/arrow_down.png");
         }
 
         Image image = new Image(icon_url.toString(), 24, 24, true, true);
@@ -89,25 +85,21 @@ public class CustomDropdown extends VBox {
                         Window window = triggerButton.getScene().getWindow();
                         Bounds bounds = triggerButton.localToScreen(triggerButton.getBoundsInLocal());
 
-                        // Устанавливаем ширину дропдауна = ширине окна
+                        // Встановлюємо ширину дропдауну = ширині вікна
                         double windowWidth = window.getWidth() - 20;
                         dropdownContent.setPrefWidth(windowWidth);
 
-                        double popupWidth = dropdownContent.prefWidth(-1);
                         double popupHeight = dropdownContent.prefHeight(-1);
 
-                        double buttonX = bounds.getMinX();
                         double buttonY = bounds.getMaxY();
 
                         double windowX = window.getX();
                         double windowY = window.getY();
-                        double screenRight = windowX + windowWidth;
                         double screenBottom = windowY + window.getHeight();
 
-                        double showX = windowX; // Левый край окна
+                        double showX = windowX;
                         double showY = buttonY + 10;
 
-                        // Если не помещается по высоте — показать сверху
                         if (showY + popupHeight > screenBottom) {
                             showY = bounds.getMinY() - popupHeight - 10;
                         }
@@ -119,7 +111,6 @@ public class CustomDropdown extends VBox {
                 });
                 break;
             default:
-                // Логика по умолчанию, если нужно
                 break;
         }
 

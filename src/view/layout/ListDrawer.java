@@ -1,11 +1,9 @@
-package view;
+package view.layout;
 
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.Pane;
+import model.ItemState;
+import view.components.ItemWithActions;
 
 public class ListDrawer {
     private VBox container = new VBox();
@@ -17,14 +15,13 @@ public class ListDrawer {
 
     public ScrollPane draw() {
         for (int i = 1; i <= size; i++) {
-            ItemWithActions li = new ItemWithActions("item" + i);
+            ItemWithActions li = new ItemWithActions(new ItemState("item" + i));
             this.container.getChildren().add(li.draw());
         }
         this.container.getStyleClass().add("list");
         ScrollPane scrollPane = new ScrollPane(container);
-        scrollPane.setFitToWidth(true); // растягивать содержимое по ширине
+        scrollPane.setFitToWidth(true);
 
-        // Настройки скролла (необязательно, но полезно)
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
