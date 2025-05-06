@@ -32,6 +32,16 @@ public class ItemWithActions {
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
+        VBox actions = this.actionsUI();
+
+        CustomDropdown dropdown = new CustomDropdown(actions, "custom", getClass().getResource("../../resources/more_vert.png"));
+
+        itemContainer.getChildren().addAll(checkBox, text, spacer, dropdown);
+
+        return itemContainer;
+    }
+
+    private VBox actionsUI() {
         VBox actions = new VBox();
         actions.setStyle("-fx-alignment: center;");
         actions.setSpacing(5);
@@ -50,10 +60,6 @@ public class ItemWithActions {
 
         actions.getChildren().addAll(edit, delete);
 
-        CustomDropdown dropdown = new CustomDropdown(actions, "custom", getClass().getResource("../../resources/more_vert.png"));
-
-        itemContainer.getChildren().addAll(checkBox, text, spacer, dropdown);
-
-        return itemContainer;
+        return actions;
     }
 }

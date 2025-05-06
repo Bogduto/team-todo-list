@@ -32,7 +32,7 @@ public class MainViewController {
 
     public void showMainView() {
         VBox root = new VBox();
-        root.getStylesheets().add(getClass().getResource("/resources/global.css").toExternalForm());
+        root.getStylesheets().add(getClass().getResource("../resources/global.css").toExternalForm());
         root.getStyleClass().add("main");
 
         // Шапка
