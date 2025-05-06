@@ -10,16 +10,17 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.CheckBox;
 import java.util.ArrayList;
 import java.util.List;
 
 // Компоненти
 
 import view.HistoryControls;
+import view.components.CheckOption;
 import view.forms.CreateTodoForm;
 import view.layout.ListDrawer;
 import view.components.CustomDropdown;
+import view.components.CheckboxGroup;
 
 public class MainViewController {
 
@@ -34,17 +35,19 @@ public class MainViewController {
         root.getStylesheets().add(getClass().getResource("/resources/global.css").toExternalForm());
         root.getStyleClass().add("main");
 
-        // Добавляем шапку
+        // Шапка
         HBox header = createHeader();
         root.getChildren().add(header);
 
-        // Добавляем список задач
+        // Список завдань
         ScrollPane listDrawer = new ListDrawer(5).draw();
         VBox.setVgrow(listDrawer, Priority.ALWAYS);
         root.getChildren().add(listDrawer);
 
-        // Добавляем форму
-        VBox form = new CreateTodoForm().todoForm();
+        // Форма для створення
+        VBox form = new CreateTodoForm(value -> {
+            System.out.println(value); // заміниться на логіку яка додає новий елемент в список
+        }).todoForm();
         root.getChildren().add(form);
 
         Scene scene = new Scene(root, 400, 500);
@@ -61,56 +64,32 @@ public class MainViewController {
         HBox headerLeft = new HBox();
         headerLeft.setSpacing(3);
 
-        Label headerTitle = new Label("Швидкий список задач");
+        Label headerTitle = new Label("Список задач");
         headerTitle.getStyleClass().add("title");
 
         VBox headerActionsCol = new VBox();
         HBox headerActionsRow = new HBox();
 
         // SORT START
-        VBox sortContainer = new VBox();
-        sortContainer.setSpacing(5);
-        Label sortLabel = new Label("Sort");
-        sortContainer.getChildren().add(sortLabel);
 
-        List<List<String>> sortItems = List.of(
-                List.of("date", "by date"),
-                List.of("activity", "by activity"),
-                List.of("length", "by Length"),
-                List.of("done", "by Done")
-        );
+        List<CheckOption> options = new ArrayList<CheckOption>();
+        options.add(new CheckOption("date", "by date", true));
+        options.add(new CheckOption("activity", "by activity", false));
+        options.add(new CheckOption( "length", "by Length", false));
+        options.add(new CheckOption( "done", "by Done", false));
 
-        for (List<String> item : sortItems) {
-            HBox box = new HBox(5);
-            CheckBox checkbox = new CheckBox();
-            checkbox.setId(item.get(0));
-            Label text = new Label(item.get(1));
-            text.getStyleClass().add("text");
-            box.getChildren().addAll(checkbox, text);
-            sortContainer.getChildren().add(box);
-        }
+        VBox sortContainer = new CheckboxGroup("Sort", (ArrayList<CheckOption>) options);
+
         // SORT END
 
         // FILTER START
-        VBox filterContainer = new VBox();
-        filterContainer.setSpacing(5);
-        Label filterLabel = new Label("Filter");
-        filterContainer.getChildren().add(filterLabel);
 
-        List<List<String>> filterItems = List.of(
-                List.of("is_activity", "is activity"),
-                List.of("is_done", "is Done")
-        );
+        List<CheckOption> filterOptions = new ArrayList<CheckOption>();
+        filterOptions.add(new CheckOption("is_activity", "is activity", false));
+        filterOptions.add(new CheckOption("is_done", "is Done", false));
 
-        for (List<String> item : filterItems) {
-            HBox box = new HBox(5);
-            CheckBox checkbox = new CheckBox();
-            checkbox.setId(item.get(0));
-            Label text = new Label(item.get(1));
-            text.getStyleClass().add("text");
-            box.getChildren().addAll(checkbox, text);
-            filterContainer.getChildren().add(box);
-        }
+        VBox filterContainer = new CheckboxGroup("Filter", (ArrayList<CheckOption>) filterOptions);
+
         // FILTER END
 
         headerActionsRow.getChildren().addAll(sortContainer, filterContainer);
