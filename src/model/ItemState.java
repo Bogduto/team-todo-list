@@ -2,17 +2,18 @@ package model;
 
 public class ItemState extends Item {
     private boolean isChecked;
-
-    public ItemState(String value) {
+    private String id;
+    public ItemState(String id, String value, Boolean isChecked) {
         super(value);
-        this.isChecked = false;
+        this.isChecked = (isChecked != null) ? isChecked : false;
+        this.id = id;
     }
 
     public boolean isChecked() {
         return isChecked;
     }
 
-    public void toggleChecked() {
-        this.isChecked = !this.isChecked;
+    public String getId() {
+        return id;
     }
 }

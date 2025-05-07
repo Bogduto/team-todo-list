@@ -69,6 +69,16 @@ public class Task {
         return isActive;
     }
 
+
+    public Boolean setIsActive(Boolean isActive) {
+        if (isActive == null) {
+            this.isActive = !this.isActive;
+        } else {
+            this.isActive = isActive;
+        }
+        return this.isActive;
+    }
+
     /**
      * Переоприділений метод toString для повернення текстового представлення задачі.
      *

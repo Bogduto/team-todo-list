@@ -2,6 +2,7 @@ package controller;
 
 // Бібліотеки
 
+import context.AppContext;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -15,6 +16,7 @@ import java.util.List;
 
 // Компоненти
 
+import schemas.Task;
 import view.HistoryControls;
 import view.components.CheckOption;
 import view.forms.CreateTodoForm;
@@ -40,13 +42,14 @@ public class MainViewController {
         root.getChildren().add(header);
 
         // Список завдань
-        ScrollPane listDrawer = new ListDrawer(5).draw();
+        ScrollPane listDrawer = new ListDrawer().draw();
         VBox.setVgrow(listDrawer, Priority.ALWAYS);
         root.getChildren().add(listDrawer);
 
         // Форма для створення
         VBox form = new CreateTodoForm(value -> {
             System.out.println(value); // заміниться на логіку яка додає новий елемент в список
+            AppContext.getTodosService().addNewTask(value); // зробити динамічним
         }).todoForm();
         root.getChildren().add(form);
 

@@ -12,6 +12,7 @@ public class CreateTodoForm {
 
     public CreateTodoForm(Consumer<String> onSubmit) {
         this.onSubmit = onSubmit;
+
     }
 
 
@@ -29,7 +30,7 @@ public class CreateTodoForm {
             String value = tf.getText();
             if (value != null && !value.trim().isEmpty()) {
                 onSubmit.accept(value); // callback
-                System.out.println("Додана задача: " + value);
+                tf.setText("");
             } else {
                 System.out.println("Будьласка введіть задачу.");
             }

@@ -1,24 +1,32 @@
 package model;
 
+import javafx.collections.ObservableList;
 import schemas.Task;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class Todos {
-    private ArrayList<Task> todos;
+    private ObservableList<Task> todos;
 
-    public Todos(ArrayList<Task> todos) {
+    public Todos(ObservableList<Task> todos) {
         this.todos = todos;
     }
 
-    public ArrayList<Task> getTodos() {
+    public ObservableList<Task> getTodos() {
         return this.todos;
     }
 
-    public Task addNewTask(Task task) {
+    public Task addNewTask(String value) {
+        String id = UUID.randomUUID().toString();
+        String createdAt = LocalDateTime.now().toString();
+
+        Task task = new Task(id, createdAt, value, false);
+
         this.todos.add(task);
 
         return task;
@@ -48,5 +56,14 @@ public class Todos {
      */
     public void removeTask(String id) {
         todos.removeIf(task -> task.getId().equals(id));
+    }
+
+    public void changeActiveTask (String id, Boolean isActive) {
+        for (Task task : todos) {
+            if (task.getId().equals(id)) {
+                task.setIsActive(isActive);
+                break;
+            }
+        }
     }
 }
