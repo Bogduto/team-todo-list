@@ -4,6 +4,8 @@ import model.Todos;
 import schemas.Task;
 import view.ConsoleView;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -36,9 +38,8 @@ public class TodoController
     private void handleCreateTask()
     {
         String text = consoleView.readLine("What you need to do: ");
-        String createdAt = formattedDate();
 
-        Task newTask = new Task(true, createdAt, text);
+        Task newTask = new Task(true, LocalDateTime.now().withNano(0), text);
 
         todos.addNewTask(newTask);
     }
@@ -59,18 +60,6 @@ public class TodoController
         int index = consoleView.readInt();
 
         todos.removeTask(index);
-    }
-
-    private String formattedDate()
-    {
-        return "%02d.%02d.%d - %02d:%02d:%02d".formatted(
-                calendar.get(Calendar.DAY_OF_MONTH),
-                calendar.get(Calendar.MONTH) + 1,
-                calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.HOUR_OF_DAY),
-                calendar.get(Calendar.MINUTE),
-                calendar.get(Calendar.SECOND)
-        );
     }
 
     private void closeProgram()

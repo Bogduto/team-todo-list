@@ -1,13 +1,20 @@
 package schemas;
 
+import IO.FileTaskRepository;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Клас, який представляє задачу у списку TODO.
  * Містить інформацію про ідентифікатор задачі, дату її створення та опис.
  */
-public class Task {
+public class Task
+{
     private String value; // Опис задачі
-    private String createdAt; // Дата та час створення задачі
+    private LocalDateTime createdAt; // Дата та час створення задачі
     private boolean isActive; // Активність задачі
+
     /**
      * Конструктор класу Task.
      *
@@ -21,8 +28,7 @@ public class Task {
 //        this.value = value;
 //        this.isActive = isActive;
 //    }
-
-    public Task(boolean isActive, String createdAt, String value)
+    public Task(boolean isActive, LocalDateTime createdAt, String value)
     {
         this.isActive = isActive;
         this.createdAt = createdAt;
@@ -35,7 +41,8 @@ public class Task {
      * @return Опис задачі
      */
 
-    public String getValue() {
+    public String getValue()
+    {
         return value;
     }
 
@@ -45,7 +52,8 @@ public class Task {
      * @param value новий опис задачі.
      */
 
-    public void setValue(String value) {
+    public void setValue(String value)
+    {
         this.value = value;
     }
 
@@ -54,16 +62,23 @@ public class Task {
      *
      * @return Дата та час створення задачі
      */
-    public String getCreatedAt() {
+    public LocalDateTime getCreatedAt()
+    {
         return createdAt;
     }
 
-/**
+    public String getFormattedCreatedAt()
+    {
+        return createdAt.format(DateTimeFormatter.ofPattern("dd.MM.yyyy - HH:mm:ss"));
+    }
+
+    /**
      * Метод, який повертає активність задачі
      *
      * @return активність задачі
      */
-    public Boolean getIsActive() {
+    public Boolean getIsActive()
+    {
         return isActive;
     }
 
@@ -72,7 +87,8 @@ public class Task {
      * Перемикає стан активності.
      * Якщо об'єкт був активним — стане неактивним, і навпаки.
      */
-    public void setIsActive() {
+    public void setIsActive()
+    {
         this.isActive = !this.isActive;
     }
 

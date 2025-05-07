@@ -26,7 +26,7 @@ public class ConsoleView
         {
             task = tasks.get(i);
             System.out.printf("%s - | %s | %s | %s\n", i,
-                    task.getCreatedAt(),
+                    task.getFormattedCreatedAt(),
                     task.getIsActive() ? "ToDo" : "Done",
                     task.getValue());
         }

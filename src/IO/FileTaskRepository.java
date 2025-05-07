@@ -5,6 +5,9 @@ import schemas.Task;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -25,7 +28,7 @@ public class FileTaskRepository implements TaskRepository
         byte lineConstraint = 3;
 
         String line = null;
-        String createdAt = null;
+        LocalDateTime createdAt = null;
         String value = null;
         boolean active;
 
@@ -37,7 +40,7 @@ public class FileTaskRepository implements TaskRepository
 
                 String[] parts = line.split(separator, lineConstraint);
 
-                createdAt = parts[0];
+                createdAt = LocalDateTime.parse(parts[0]);
                 value = parts[1];
                 active = Boolean.parseBoolean(parts[2]);
 
@@ -57,17 +60,20 @@ public class FileTaskRepository implements TaskRepository
     {
         try (FileWriter writer = new FileWriter(file, false))
         {
+            String line = null;
+
             for (Task task : tasks)
             {
-                String line = "%s%s%s%s%s".formatted(
+                line = "%s%s%s%s%s".formatted(
                         task.getCreatedAt(), separator,
                         task.getValue(), separator,
                         task.getIsActive()
                 );
+
                 writer.write(line + "\n");
             }
         }
-        catch (java.io.IOException exception)
+        catch (IOException exception)
         {
             System.out.println("File save error -> " + file.getPath());
         }
