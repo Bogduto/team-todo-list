@@ -2,6 +2,8 @@ package model;
 
 import schemas.Task;
 import java.io.*;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.ArrayList;
 
@@ -55,6 +57,11 @@ public class Todos {
         {
             todos.remove(index);
         }
+    }
+
+    public void sort(Comparator<Task> comparator)
+    {
+        todos.sort(comparator);
     }
 
     private boolean isIndexValid(int index)

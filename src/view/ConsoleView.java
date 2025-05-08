@@ -44,6 +44,7 @@ public class ConsoleView
                 "1. Add a new task\n" +
                 "2. Edit a task\n" +
                 "3. Delete a task\n" +
+                "4. Change sorting\n" +
                 "0. Exit";
 
         System.out.println(line + header + line);

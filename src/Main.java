@@ -1,8 +1,15 @@
 import IO.FileTaskRepository;
 import IO.TaskRepository;
+import controller.SortController;
 import controller.TodoController;
 import model.Todos;
+import sorting.SortByActiveAndNewest;
+import sorting.SortByActiveAndOlder;
+import sorting.SortByDataNewest;
+import sorting.SortByDataOlder;
 import view.ConsoleView;
+
+import java.util.Collections;
 
 public class Main {
 
@@ -13,7 +20,8 @@ public class Main {
 
         Todos todos = new Todos(taskRepository.loadTasks());
         ConsoleView consoleView = new ConsoleView();
-        TodoController todoController = new TodoController(todos, consoleView);
+        SortController sortController = new SortController(todos);
+        TodoController todoController = new TodoController(todos, consoleView, sortController);
 
 //        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
 //             Тільки коли закриваеться прога

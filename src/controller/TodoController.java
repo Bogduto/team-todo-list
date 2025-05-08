@@ -2,6 +2,10 @@ package controller;
 
 import model.Todos;
 import schemas.Task;
+import sorting.SortByActiveAndNewest;
+import sorting.SortByActiveAndOlder;
+import sorting.SortByDataNewest;
+import sorting.SortByDataOlder;
 import view.ConsoleView;
 
 import java.time.LocalDateTime;
@@ -13,14 +17,13 @@ public class TodoController
 {
     private final Todos todos;
     private final ConsoleView consoleView;
-    private final GregorianCalendar calendar;
+    private final SortController sortController;
 
-    public TodoController(Todos todos, ConsoleView consoleView)
+    public TodoController(Todos todos, ConsoleView consoleView, SortController sortController)
     {
         this.todos = todos;
         this.consoleView = consoleView;
-
-        this.calendar = new GregorianCalendar();
+        this.sortController = sortController;
     }
 
     public void handleMenuChoice(int choice)
@@ -30,6 +33,7 @@ public class TodoController
             case 1 -> handleCreateTask();
             case 2 -> handleEditTask();
             case 3 -> handleRemoveTask();
+            case 4 -> handleChangeSorting();
             case 0 -> closeProgram();
             default -> consoleView.showMessage("Invalid choice, please try again");
         }
@@ -60,6 +64,20 @@ public class TodoController
         int index = consoleView.readInt();
 
         todos.removeTask(index);
+    }
+
+    private void handleChangeSorting()
+    {
+        consoleView.showPrompt("What type of sorting:\n" +
+                "1. Active and newest\n" +
+                "2. Active and oldest\n" +
+                "3. Newest\n" +
+                "4. Oldest\n" +
+                "Choice -> "
+
+        );
+
+        sortController.changeSorting(consoleView.readInt());
     }
 
     private void closeProgram()
