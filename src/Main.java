@@ -2,34 +2,29 @@ import IO.FileTaskRepository;
 import IO.TaskRepository;
 import controller.TodoController;
 import model.Todos;
+import ui.views.RootView;
 import view.ConsoleView;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 
 public class Main {
 
     public static void main(String[] args)
     {
-        String path = "./src/data/todos.txt";
-        TaskRepository taskRepository = new FileTaskRepository(path);
 
-        Todos todos = new Todos(taskRepository.loadTasks());
-        ConsoleView consoleView = new ConsoleView();
-        TodoController todoController = new TodoController(todos, consoleView);
+        JFrame frame = new JFrame("Simple Swing Example");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(450, 500);
 
-//        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-//             Тільки коли закриваеться прога
-//            taskRepository.saveTasks(todos.getTasks());
-//        }));
+        JPanel root = new RootView().getPanel();
 
-        while (true)
-        {
-            consoleView.showTasks(todos.getTasks());
-            consoleView.showMenu();
-            int choise = consoleView.readInt();
-            todoController.handleMenuChoice(choise);
+        frame.getContentPane().add(root);
 
-            //Зберігає постоянно коли якийся двіж йоу
-            taskRepository.saveTasks(todos.getTasks());
-        }
+        // Отображение окна
+        frame.setVisible(true);
     }
 }
 
