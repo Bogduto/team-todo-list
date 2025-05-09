@@ -1,19 +1,26 @@
 package ui.views;
 
+import ui.contollers.RootController;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class MainView {
+    public ArrayList<String> items;
+
+    public MainView(RootController controller) {
+        this.items = controller.getItems();
+    }
 
     public JScrollPane getView() {
-        String[] items = {"Элемент 1", "Элемент 2", "Элемент 3", "Элемент 4"};
 
-        JCheckBox[] checkboxes = new JCheckBox[items.length];
-        for (int i = 0; i < items.length; i++) {
-            checkboxes[i] = new JCheckBox(items[i]);
+        JCheckBox[] checkboxes = new JCheckBox[items.size()];
+
+        for (int i = 0; i < items.size(); i++) {
+            checkboxes[i] = new JCheckBox(items.get(i));
         }
 
-        // Создаем панель для размещения чекбоксов
         JPanel checkBoxPanel = new JPanel();
         checkBoxPanel.setLayout(new BoxLayout(checkBoxPanel, BoxLayout.Y_AXIS));
 

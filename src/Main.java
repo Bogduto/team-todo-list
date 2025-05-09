@@ -1,29 +1,26 @@
-import IO.FileTaskRepository;
-import IO.TaskRepository;
-import controller.TodoController;
-import model.Todos;
+import ui.contollers.RootController;
 import ui.views.RootView;
-import view.ConsoleView;
-
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Main {
 
     public static void main(String[] args)
     {
 
-        JFrame frame = new JFrame("Simple Swing Example");
+        ArrayList<String> items = new ArrayList<>(Arrays.asList("Элемент 1", "Элемент 2", "Элемент 3", "Элемент 4"));
+
+        JFrame frame = new JFrame("Todo");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(450, 500);
 
-        JPanel root = new RootView().getPanel();
+        RootController rootController = new RootController(items);
+
+        JPanel root = new RootView(rootController).getPanel();
 
         frame.getContentPane().add(root);
 
-        // Отображение окна
         frame.setVisible(true);
     }
 }

@@ -1,14 +1,25 @@
 package ui.views;
 
+import ui.contollers.RootController;
+
 import javax.swing.*;
 
 public class RootView {
 
-    HeaderView headerView = new HeaderView();
-    MainView mainView = new MainView();
-    FooterView footerView = new FooterView();
+    RootController root;
 
-    public RootView(){}
+    HeaderView headerView;
+    MainView mainView;
+    FooterView footerView;
+
+    public RootView(RootController root) {
+        this.root = root;
+
+        headerView = new HeaderView();
+        mainView = new MainView(root);
+        footerView = new FooterView();
+
+    }
 
     public JPanel getPanel() {
         JPanel panel = new JPanel();
@@ -18,7 +29,7 @@ public class RootView {
         panel.add(headerView.getView());
         panel.add(mainView.getView());
 
-//        panel.add(Box.createVerticalStrut(50));
+        panel.add(Box.createVerticalStrut(20));
 
         panel.add(footerView.getView());
 

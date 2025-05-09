@@ -36,12 +36,9 @@ public class HeaderView {
         rightPanel.add(next);
 
 
-
         panel.add(leftPanel);
 
-
         panel.add(rightPanel);
-
 
         return panel;
     }
