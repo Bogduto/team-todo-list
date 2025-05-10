@@ -1,15 +1,41 @@
 package ui.contollers;
 
+import ui.views.HeaderView;
+import ui.views.RootView;
+
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class RootController {
-    private ArrayList<String> items;
+    private RootView rootView;
+    private HeaderController headerController;
+    private MainController mainController;
+    private FooterController footerController;
 
-    public RootController(ArrayList<String> items) {
-        this.items = items;
+    public RootController(RootView rootView,
+                          HeaderController headerController,
+                          MainController mainController,
+                          FooterController footerController) {
+        this.rootView = rootView;
+        this.headerController = headerController;
+        this.mainController = mainController;
+        this.footerController = footerController;
     }
 
-    public ArrayList<String> getItems() {
-        return items;
+    public JPanel getRootPanel() {
+        return rootView.getView(this);
+    }
+
+    // Геттеры для дочерних контроллеров
+    public HeaderController getHeaderController() {
+        return headerController;
+    }
+
+    public MainController getMainController() {
+        return mainController;
+    }
+
+    public FooterController getFooterController() {
+        return footerController;
     }
 }
