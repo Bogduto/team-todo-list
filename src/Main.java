@@ -3,13 +3,7 @@ import IO.TaskRepository;
 import controller.SortController;
 import controller.TodoController;
 import model.Todos;
-import sorting.SortByActiveAndNewest;
-import sorting.SortByActiveAndOlder;
-import sorting.SortByDataNewest;
-import sorting.SortByDataOlder;
 import view.ConsoleView;
-
-import java.util.Collections;
 
 public class Main {
 
