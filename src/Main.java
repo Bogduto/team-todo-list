@@ -1,5 +1,6 @@
 import IO.FileTaskRepository;
 import IO.TaskRepository;
+import UserInterface.UserInterface;
 import controller.TodoController;
 import model.Todos;
 import view.ConsoleView;
@@ -19,6 +20,9 @@ public class Main {
 //             Тільки коли закриваеться прога
 //            taskRepository.saveTasks(todos.getTasks());
 //        }));
+
+        UserInterface userInterface = new UserInterface();
+        userInterface.run();
 
         while (true)
         {
