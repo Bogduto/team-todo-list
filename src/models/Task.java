@@ -13,9 +13,10 @@ public class Task {
     private Date from; // пізніше
     private Date to; // пізніше
 
-    public Task(String id, String description, LocalDateTime createdAt, boolean done) {
+    public Task(String id, String description, LocalDateTime createdAt, LocalDateTime updatedAt, boolean done) {
         this.id = id;
         this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
         this.description = description;
         this.done = done;
     }
@@ -30,7 +31,7 @@ public class Task {
 
     public void setDescription(String description) {
         this.description = description;
-        this.updatedAt = LocalDateTime.parse(LocalDateTime.now().toString());
+        setUpdatedAt();
     }
 
 
@@ -39,12 +40,20 @@ public class Task {
     }
 
     public void setDone(boolean done) {
-        this.updatedAt = LocalDateTime.parse(LocalDateTime.now().toString());
         this.done = done;
+        setUpdatedAt();
     }
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt() {
+        this.updatedAt = LocalDateTime.now();
+    }
 }
