@@ -25,12 +25,13 @@ public class FileTasks implements TaskRepository
     public ArrayList<Task> loadTasks()
     {
         ArrayList<Task> tasks = new ArrayList<>();
-        byte lineConstraint = 3;
+        byte lineConstraint = 4;
 
         String line = null;
-//        LocalDateTime createdAt = null;
-//        String value = null;                                                      change it
-//        boolean active;
+        String id = null;
+        LocalDateTime createdAt = null;
+        String value = null;
+        boolean active;
 
         try (Scanner scanner = new Scanner(file))
         {
@@ -40,12 +41,13 @@ public class FileTasks implements TaskRepository
 
                 String[] parts = line.split(separator, lineConstraint);
 
-//                createdAt = LocalDateTime.parse(parts[0]);
-//                value = parts[1];                                                 change it
-//                active = Boolean.parseBoolean(parts[2]);
+                id = parts[0];
+                createdAt = LocalDateTime.parse(parts[1]);
+                value = parts[2];
+                active = Boolean.parseBoolean(parts[3]);
 
-//                Task task = new Task(active, createdAt, value);                   change it
-//                tasks.add(task);
+                Task task = new Task(id, value, createdAt, active);
+                tasks.add(task);
             }
         } catch (FileNotFoundException exception)
         {

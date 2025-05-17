@@ -7,17 +7,17 @@ public class Task {
     private String id;
     private String description;
     private boolean done;
-    private String createdAt;
-    private String updatedAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
     // time
     private Date from; // пізніше
     private Date to; // пізніше
 
-    public Task(String id, String description, String createdAt) {
+    public Task(String id, String description, LocalDateTime createdAt, boolean done) {
         this.id = id;
-        this.description = description;
         this.createdAt = createdAt;
-        done = false;
+        this.description = description;
+        this.done = done;
     }
 
     public String getId() {
@@ -30,7 +30,7 @@ public class Task {
 
     public void setDescription(String description) {
         this.description = description;
-        this.updatedAt = LocalDateTime.now().toString();
+        this.updatedAt = LocalDateTime.parse(LocalDateTime.now().toString());
     }
 
 
@@ -39,11 +39,11 @@ public class Task {
     }
 
     public void setDone(boolean done) {
-        this.updatedAt = LocalDateTime.now().toString();
+        this.updatedAt = LocalDateTime.parse(LocalDateTime.now().toString());
         this.done = done;
     }
 
-    public String getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 

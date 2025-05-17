@@ -35,10 +35,10 @@ public class TaskManeger {
     public void addTask(String description) {
         String id = UUID.randomUUID().toString();
 
-        String createdAt = LocalDateTime.now().toString();
+        LocalDateTime createdAt = LocalDateTime.parse(LocalDateTime.now().toString());
 
 
-        Task task = new Task(id, description, createdAt);
+        Task task = new Task(id, description, createdAt, false);
         tasks.add(task);
     }
 
