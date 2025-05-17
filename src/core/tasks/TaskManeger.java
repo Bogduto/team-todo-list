@@ -1,13 +1,11 @@
 package core.tasks;
 
-import core.patterns.memento.TaskMemento;
 import models.Task;
 
 import java.util.ArrayList;
-import java.util.Stack;
+import java.util.Comparator;
 import java.util.UUID;
 import java.time.LocalDateTime;
-
 
 public class TaskManeger {
     private ArrayList<Task> tasks;
@@ -47,7 +45,6 @@ public class TaskManeger {
     /**
      * Метод який видаляє таску по id
      * */
-
     public void removeTask (String id) {
         tasks.removeIf(task -> task.getId().equals(id));
     }
@@ -65,5 +62,11 @@ public class TaskManeger {
 
     }
 
+    /**
+     * Метод сортування
+     * */
+    public void sortTasks(Comparator<Task> comparator) {
+        tasks.sort(comparator);
+    }
 
 }
