@@ -11,7 +11,11 @@ public class TaskManeger {
     private ArrayList<Task> tasks;
 
     public TaskManeger(ArrayList<Task> tasks) {
-        this.tasks = tasks;
+        if (tasks != null) {
+            this.tasks = tasks;
+        } else {
+            this.tasks = new ArrayList<>();
+        }
     }
 
     /**
@@ -38,7 +42,7 @@ public class TaskManeger {
         LocalDateTime createdAt = LocalDateTime.parse(LocalDateTime.now().toString());
 
 
-        Task task = new Task(id, description, createdAt, false);
+        Task task = new Task(id, description, createdAt, createdAt, false);
         tasks.add(task);
     }
 

@@ -25,11 +25,14 @@ public class FileTasks implements TaskRepository
     public ArrayList<Task> loadTasks()
     {
         ArrayList<Task> tasks = new ArrayList<>();
-        byte lineConstraint = 4;
+        byte lineConstraint = 5;
 
         String line = null;
+
+
         String id = null;
         LocalDateTime createdAt = null;
+        LocalDateTime updateAt = null;
         String value = null;
         boolean active;
 
@@ -43,10 +46,11 @@ public class FileTasks implements TaskRepository
 
                 id = parts[0];
                 createdAt = LocalDateTime.parse(parts[1]);
-                value = parts[2];
-                active = Boolean.parseBoolean(parts[3]);
+                updateAt = LocalDateTime.parse(parts[2]);
+                value = parts[3];
+                active = Boolean.parseBoolean(parts[4]);
 
-                Task task = new Task(id, value, createdAt, active);
+                Task task = new Task(id, value, createdAt, updateAt, active);
                 tasks.add(task);
             }
         } catch (FileNotFoundException exception)
@@ -66,11 +70,14 @@ public class FileTasks implements TaskRepository
 
             for (Task task : tasks)
             {
-                line = "%s%s%s%s%s".formatted(
-                        task.getCreatedAt(), separator,
-                        task.getDescription(), separator,
-                        task.getDone()
+                line = String.join(separator,
+                        task.getId(),
+                        task.getCreatedAt().toString(),
+                        task.getUpdatedAt().toString(),
+                        task.getDescription(),
+                        String.valueOf(task.getDone())
                 );
+
 
                 writer.write(line + "\n");
             }
