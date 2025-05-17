@@ -1,4 +1,5 @@
 package ui.views;
+
 import javax.swing.*;
 
 public class HeaderView {
@@ -16,12 +17,11 @@ public class HeaderView {
 
         JLabel title = new JLabel("Todo");
 
-        JButton button = new JButton("Сортування");
+
 
         JButton button1 = new JButton("Фільтр");
-
         leftPanel.add(title);
-        leftPanel.add(button);
+
         leftPanel.add(button1);
 
 //        memento

@@ -1,10 +1,7 @@
 package ui.contollers;
-
-import ui.views.HeaderView;
 import ui.views.RootView;
 
 import javax.swing.*;
-import java.util.ArrayList;
 
 public class RootController {
     private RootView rootView;

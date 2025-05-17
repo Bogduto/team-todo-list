@@ -1,7 +1,5 @@
 package ui.views;
 
-import ui.contollers.RootController;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -18,17 +16,20 @@ public class MainView {
         scrollPane.setPreferredSize(new Dimension(400, 400));
     }
 
+
     public JScrollPane getView(ArrayList<String> items) {
-        refreshView(items); // рисуем изначально
+        refreshView(items);
         return scrollPane;
     }
 
     public void refreshView(ArrayList<String> items) {
-        checkBoxPanel.removeAll(); // удаляем старые элементы
+        checkBoxPanel.removeAll();
 
         for (String item : items) {
             JPanel itemPanel = new JPanel();
             itemPanel.setLayout(new BoxLayout(itemPanel, BoxLayout.X_AXIS));
+            itemPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
+            itemPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
             JCheckBox checkBox = new JCheckBox(item);
             itemPanel.add(checkBox);
@@ -49,7 +50,8 @@ public class MainView {
             checkBoxPanel.add(itemPanel);
         }
 
-        checkBoxPanel.revalidate(); // обновляем UI
+
+        checkBoxPanel.revalidate(); // refresh UI
         checkBoxPanel.repaint();
     }
 }

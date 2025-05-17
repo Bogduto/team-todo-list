@@ -34,7 +34,7 @@ public class Task {
     }
 
 
-    public boolean isDone() {
+    public boolean getDone() {
         return done;
     }
 
