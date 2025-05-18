@@ -2,28 +2,30 @@ package core.utils;
 
 import models.Task;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.UUID;
 
-public class FileTasks implements TaskRepository
+public class FileTasks implements FileRepository
 {
     private final File file;
     private final String separator = "⁞ ";
 
     public FileTasks(String filePath)
     {
-        this.file = new File(filePath);
+        if (filePath == null || filePath.isEmpty()) {
+            this.file = null;
+        } else {
+            this.file = new File(filePath);
+        }
     }
 
     @Override
     public ArrayList<Task> loadTasks()
     {
+
         ArrayList<Task> tasks = new ArrayList<>();
         byte lineConstraint = 5;
 
@@ -85,6 +87,21 @@ public class FileTasks implements TaskRepository
         catch (IOException exception)
         {
             System.out.println("File save error -> " + file.getPath());
+        }
+    }
+
+    public String createNewTaskFile() {
+        String id = UUID.randomUUID().toString();
+        File file = new File("./src/data/tasks/" + id + ".txt");
+
+        try {
+            if (file.createNewFile()) {
+                return id;
+            } else {
+                throw new IOException("File already exists: " + file.getName());
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to create new task file", e);
         }
     }
 }

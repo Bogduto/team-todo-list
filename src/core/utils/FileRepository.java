@@ -4,9 +4,9 @@ import models.Task;
 
 import java.util.ArrayList;
 
-public interface TaskRepository
+public interface FileRepository
 {
-    public ArrayList<Task> loadTasks(String groupId);
+    public ArrayList<Task> loadTasks();
 
-    public void saveTasks(String groupId, ArrayList<Task> tasks);
+    public void saveTasks(ArrayList<Task> tasks);
 }

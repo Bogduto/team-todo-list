@@ -14,7 +14,7 @@ public class TaskManeger {
         if (tasks != null) {
             this.tasks = tasks;
         } else {
-            this.tasks = new ArrayList<>();
+            this.tasks = new ArrayList<Task>();
         }
     }
 

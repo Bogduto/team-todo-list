@@ -1,105 +1,127 @@
-import core.patterns.memento.History;
-import core.patterns.memento.TaskMemento;
-import core.tasks.TaskManeger;
-import core.tasks.TaskSorter;
-import models.Task;
-import ui.components.UserInterface;
+import java.util.Scanner;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import models.Group;
+import models.Task;
+import core.groups.GroupManager;
+import core.utils.FileRoot;
+
 
 public class Main {
 
-    private static void start() {
-        ArrayList<String> items = new ArrayList<>(Arrays.asList("Элемент 1", "Элемент 2", "Элемент 3", "Элемент 4"));
-
-       /* JFrame frame = new JFrame("Todo");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(450, 500);
-*/
-////      views
-//        RootView rootView = new RootView();
-//
-//        HeaderView headerView = new HeaderView();
-//        MainView mainView = new MainView();
-//        FooterView footerView = new FooterView();
-//
-////      controllers
-//
-//        HeaderController headerController = new HeaderController(headerView);
-//        MainController mainController = new MainController(mainView, items);
-//        FooterController footerController = new FooterController(footerView);
-//
-////        root controller
-//        RootController rootController = new RootController(
-//                rootView, headerController, mainController, footerController
-//        );
-
-
-//
-//        frame.getContentPane().add(rootController.getRootPanel());
-//
-//        frame.setVisible(true);
-    }
-
     public static void main(String[] args) {
-        start();
-        ArrayList<Task> tasks = new ArrayList<>(
-                Arrays.asList(
-                        new Task("1", "hello world 0", "10-12-2004"),
-                        new Task("2", "hello world 1", "15-04-2014"),
-                        new Task("3", "hello world 2", "01-11-2007")
-                )
-        );
+        FileRoot root = new FileRoot();
+        GroupManager groupManager = new GroupManager(root.loadGroups());
 
-        TaskManeger taskManeger = new TaskManeger(tasks);
+        Scanner scanner = new Scanner(System.in);
+        boolean running = true;
 
-        TaskSorter taskSorter = new TaskSorter(taskManeger);
+        while (running) {
+            System.out.println("Hi!");
+            System.out.println("Menu:");
+            System.out.println("  - 1. See groups");
+            System.out.println("  - 2. Enter a group");
+            System.out.println("  - 3. Add the new group");
+            System.out.println("  - 4. Exit");
 
-        taskSorter.applySort(1);
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // очистка буфера
+
+            switch (choice) {
+                case 1:
+                    System.out.println("\nGroups:");
+                    for (int i = 0; i < groupManager.getAllGroups().size(); i++) {
+                        Group group = groupManager.getAllGroups().get(i);
+                        System.out.println("  " + (i + 1) + ". " + group.getGroupName());
+                    }
+                    System.out.println();
+                    break;
+
+                case 2:
+                    System.out.print("Enter group number: ");
+                    int groupNumber = scanner.nextInt();
+                    scanner.nextLine();
+
+                    if (groupNumber >= 1 && groupNumber <= groupManager.getAllGroups().size()) {
+                        Group selectedGroup = groupManager.getAllGroups().get(groupNumber - 1);
+                        boolean insideGroup = true;
+
+                        while (insideGroup) {
+                            System.out.println("\nGroup: " + selectedGroup.getGroupName());
+                            System.out.println("  - 1. Show tasks");
+                            System.out.println("  - 2. Add task");
+                            System.out.println("  - 3. Delete task");
+                            System.out.println("  - 4. Back to main menu");
+                            System.out.print("Your choice: ");
+
+                            int groupChoice = scanner.nextInt();
+                            scanner.nextLine();
+
+                            switch (groupChoice) {
+                                case 1:
+                                    System.out.println("Tasks:");
+                                    for (Task task : selectedGroup.getTaskManeger().getTasks()) {
+                                        System.out.println("  id: " + task.getId() + " | " + task.getDescription());
+                                    }
+                                    break;
+
+                                case 2:
+                                    System.out.print("Enter task description: ");
+                                    String desc = scanner.nextLine();
+
+                                    selectedGroup.getTaskManeger().addTask(desc);
+                                    System.out.println("Task added.");
+                                    break;
+
+                                case 3:
+                                    System.out.print("Enter task ID to delete: ");
+                                    String taskId = scanner.nextLine();
+                                    selectedGroup.getTaskManeger().removeTask(taskId); // нужно реализовать метод
+                                    System.out.println("Task deleted (if existed).");
+                                    break;
+
+                                case 4:
+                                    insideGroup = false;
+                                    break;
+
+                                default:
+                                    System.out.println("Invalid option.");
+                                    break;
+                            }
+                        }
+                    } else {
+                        System.out.println("Invalid group number.\n");
+                    }
+                    break;
+
+                case 3:
+                    System.out.print("Add a new group: ");
+                    String name = scanner.nextLine();
+
+                    groupManager.addGroup(name);
+
+                    System.out.println("Group added.");
+                    break;
+                case 4:
+                    running = false;
+                    root.saveGroups(groupManager.getAllGroups());
+                    System.out.println("Goodbye!");
+                    break;
+
+                default:
+                    System.out.println("Invalid option.\n");
+                    break;
+            }
+        }
 
 
-//        for (Task task : taskManeger.getTasks()) {
-//            System.out.println("id: " + task.getId() + " value: " + task.getDescription());
-//        }
+
 
     }
 
+    // TODO:
+// 1. Save all data to files when the program exits.
+// 2. Automatically create a new <id>.txt file if the group doesn't have an associated tasks file.
+// 3. Add validation for group data (e.g. non-empty name, unique ID, etc).
 
-
-
-
-    public static void mementoMain() {
-        ArrayList<Task> tasks = new ArrayList<>(
-                Arrays.asList(
-                        new Task("1", "hello world 0", "10-12-2004"),
-                        new Task("2", "hello world 1", "15-04-2014"),
-                        new Task("3", "hello world 2", "01-11-2007")
-                )
-        );
-
-        TaskManeger taskManeger = new TaskManeger(tasks);
-        History history = new History();
-
-//        if add new
-
-        history.push(new TaskMemento(taskManeger.getTasks()));
-        taskManeger.addTask("addy");
-
-//        if undo
-
-//        TaskMemento memento = history.undo(taskManeger.getTasks());
-//        if (memento != null) {
-//            taskManeger.setTasks(memento.getState());
-//        }
-
-
-//        if redo
-
-//        TaskMemento redoMemento = history.redo(taskManeger.getTasks());
-//        if (redoMemento != null) {
-//            taskManeger.setTasks(redoMemento.getState());
-//        }
-
-    }
 }

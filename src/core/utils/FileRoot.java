@@ -1,12 +1,12 @@
 package core.utils;
 
-import core.tasks.TaskGroup;
+import models.Group;
 import core.tasks.TaskManeger;
-import models.Task;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.time.LocalDateTime;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,8 +15,8 @@ public class FileRoot {
     private final String separator = "⁞ ";
 
 
-    public ArrayList<TaskGroup> loadGroups() {
-        ArrayList<TaskGroup> taskGroupList = new ArrayList<>();
+    public ArrayList<Group> loadGroups() {
+        ArrayList<Group> taskGroupList = new ArrayList<>();
         int expectedParts = 3;
 
         try (Scanner scanner = new Scanner(rootPath)) {
@@ -33,9 +33,9 @@ public class FileRoot {
                 String name = parts[1];
                 String tasksId = parts[2];
 
-                FileTasks fileTasks = new FileTasks("./src/data/" + tasksId + ".txt");
+                FileTasks fileTasks = new FileTasks("./src/data/tasks/" + tasksId + ".txt");
                 TaskManeger taskManeger = new TaskManeger(fileTasks.loadTasks());
-                TaskGroup taskGroup = new TaskGroup(id, name, taskManeger);
+                Group taskGroup = new Group(id, name, taskManeger, tasksId);
 
                 taskGroupList.add(taskGroup);
             }
@@ -47,7 +47,28 @@ public class FileRoot {
     }
 
 
-    public void saveGroups(String groupId, ArrayList<Task> tasks) {
+    public void saveGroups(ArrayList<Group> groups) {
+        try (FileWriter writer = new FileWriter(rootPath, false)) {
+            for (Group group : groups) {
+                String taskListId = group.getListId();
 
+                if (taskListId == null || taskListId.isEmpty()) {
+                    taskListId = new FileTasks(null).createNewTaskFile();
+                }
+
+                FileTasks fileTasks = new FileTasks("./src/data/tasks/" + taskListId + ".txt");
+                fileTasks.saveTasks(group.getTaskManeger().getTasks());
+
+                String line = String.join(separator,
+                        group.getGroupId(),
+                        group.getGroupName(),
+                        taskListId
+                );
+                writer.write(line + "\n");
+            }
+        } catch (IOException exception) {
+            System.out.println("File save error -> " + rootPath.getPath());
+        }
     }
+
 }
