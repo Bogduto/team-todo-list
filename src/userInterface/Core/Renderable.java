@@ -1,4 +1,4 @@
-package UserInterface;
+package userInterface.Core;
 
 import java.awt.*;
 

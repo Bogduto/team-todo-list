@@ -1,6 +1,6 @@
 import IO.FileTaskRepository;
 import IO.TaskRepository;
-import UserInterface.UserInterface;
+import userInterface.UserInterface;
 import controller.TodoController;
 import model.Todos;
 import view.ConsoleView;
@@ -24,16 +24,16 @@ public class Main {
         UserInterface userInterface = new UserInterface();
         userInterface.run();
 
-        while (true)
-        {
-            consoleView.showTasks(todos.getTasks());
-            consoleView.showMenu();
-            int choise = consoleView.readInt();
-            todoController.handleMenuChoice(choise);
-
-            //Зберігає постоянно коли якийся двіж йоу
-            taskRepository.saveTasks(todos.getTasks());
-        }
+//        while (true)
+//        {
+//            consoleView.showTasks(todos.getTasks());
+//            consoleView.showMenu();
+//            int choise = consoleView.readInt();
+//            todoController.handleMenuChoice(choise);
+//
+//            //Зберігає постоянно коли якийся двіж йоу
+//            taskRepository.saveTasks(todos.getTasks());
+//        }
     }
 }
 
