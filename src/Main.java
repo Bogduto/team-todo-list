@@ -1,3 +1,9 @@
+import IO.FileTaskRepository;
+import IO.TaskRepository;
+import userInterface.UserInterface;
+import controller.TodoController;
+import model.Todos;
+import view.ConsoleView;
 import ui.contollers.FooterController;
 import ui.contollers.HeaderController;
 import ui.contollers.MainController;
@@ -10,39 +16,35 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Main {
-
+public class Main 
+{
     public static void main(String[] args)
     {
+        String path = "./src/data/todos.txt";
+        TaskRepository taskRepository = new FileTaskRepository(path);
 
-        ArrayList<String> items = new ArrayList<>(Arrays.asList("Элемент 1", "Элемент 2", "Элемент 3", "Элемент 4"));
+        Todos todos = new Todos(taskRepository.loadTasks());
+        ConsoleView consoleView = new ConsoleView();
+        TodoController todoController = new TodoController(todos, consoleView);
 
-        JFrame frame = new JFrame("Todo");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(450, 500);
+//        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+//             Тільки коли закриваеться прога
+//            taskRepository.saveTasks(todos.getTasks());
+//        }));
 
-//      views
-        RootView rootView = new RootView();
+        UserInterface userInterface = new UserInterface();
+        userInterface.run();
 
-        HeaderView headerView = new HeaderView();
-        MainView mainView = new MainView();
-        FooterView footerView = new FooterView();
-//      controllers
-
-        HeaderController headerController = new HeaderController(headerView);
-        MainController mainController = new MainController(mainView, items);
-        FooterController footerController = new FooterController(footerView);
-
-//        root controller
-        RootController rootController = new RootController(
-                rootView, headerController, mainController, footerController
-        );
-
-
-
-        frame.getContentPane().add(rootController.getRootPanel());
-
-        frame.setVisible(true);
+//        while (true)
+//        {
+//            consoleView.showTasks(todos.getTasks());
+//            consoleView.showMenu();
+//            int choise = consoleView.readInt();
+//            todoController.handleMenuChoice(choise);
+//
+//            //Зберігає постоянно коли якийся двіж йоу
+//            taskRepository.saveTasks(todos.getTasks());
+//        }
     }
 }
 
